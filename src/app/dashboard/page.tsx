@@ -14,6 +14,7 @@ const Container = styled.div`
 const AddButton = styled.button`
   padding: 10px;
   margin-bottom: 20px;
+  margin-right: 20px;
   font-size: 16px;
   cursor: pointer;
   background-color: #28a745;
@@ -53,6 +54,21 @@ const ExportButton = styled.button`
 
   &:hover {
     background-color: #005bb5;
+  }
+`;
+
+const LogoutButton = styled.button`
+  padding: 10px 16px;
+  font-size: 16px;
+  background-color: #dc3545; /* Red */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #b02a37; /* Darker red on hover */
   }
 `;
 
@@ -109,9 +125,30 @@ const DashboardPage = () => {
     URL.revokeObjectURL(url);
   };
 
+  const exportOne = (id: number) => {
+    const data = submissions[id] || {};
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `form-${id}-submission.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <Container>
-      <h1>Admin Dashboard</h1>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+          <h1>Admin Dashboard</h1>
+          <LogoutButton
+            onClick={() => {
+              localStorage.removeItem('token');
+              router.push('/login');
+            }}
+          >
+          Logout
+          </LogoutButton>
+      </div>
       <AddButton onClick={addForm}>+ Add New Form</AddButton>
       <ExportButton onClick={exportAll}>Export All Submissions</ExportButton>
 
@@ -127,7 +164,12 @@ const DashboardPage = () => {
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <h3>Form #{id}</h3>
-            <DeleteButton onClick={() => deleteForm(id)}>Delete</DeleteButton>
+            <div>
+              <DeleteButton onClick={() => deleteForm(id)}>Delete</DeleteButton>
+              <ExportButton style={{ marginLeft: '10px' }} onClick={() => exportOne(id)}>
+                Export This Form
+              </ExportButton>
+            </div>
           </div>
           <DynamicForm schema={schema} onSubmit={(data) => handleFormSubmit(id, data)} />
         </div>

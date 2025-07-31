@@ -14,7 +14,7 @@ const Container = styled.div`
 `;
 
 const Input = styled.input`
-  width: 100%;
+  width: 90%;
   padding: 10px;
   margin: 8px 0;
   font-size: 16px;

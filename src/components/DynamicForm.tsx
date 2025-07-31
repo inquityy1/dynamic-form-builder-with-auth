@@ -36,8 +36,12 @@ const Input = styled.input`
 `;
 
 const Textarea = styled.textarea`
-  padding: 8px;
+  width: 90%;
+  height: 100px;
+  padding: 10px;
   font-size: 16px;
+  border-radius: 4px;
+  resize: none;
 `;
 
 const Button = styled.button`
@@ -71,16 +75,26 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ schema, onSubmit }) => {
     <div>
       <h2>{schema.title}</h2>
       <Form onSubmit={handleSubmit}>
-        {schema.fields.map((field) => (
-          <div key={field.name}>
-            <Label>{field.label}</Label>
-            {field.type === 'textarea' ? (
-              <Textarea name={field.name} required={field.required} onChange={handleChange} />
-            ) : (
-              <Input type={field.type} name={field.name} required={field.required} onChange={handleChange} />
-            )}
-          </div>
-        ))}
+      {schema.fields.map((field) => (
+        <div key={field.name}>
+          {field.type === 'textarea' ? (
+          <Textarea
+            name={field.name}
+            placeholder={field.label}
+            required={field.required}
+            onChange={handleChange}
+          />
+          ) : (
+          <Input
+            type={field.type}
+            name={field.name}
+            placeholder={field.label}
+            required={field.required}
+            onChange={handleChange}
+          />
+          )}
+        </div>
+      ))}
         <Button type="submit">Submit</Button>
       </Form>
     </div>
