@@ -72,8 +72,7 @@ project-root/
 ### **1. Clone the Repository**
 
 ```
-git clone https://github.com/your-username/dynamic-form-builder.git
-cd dynamic-form-builder
+git clone https://github.com/inquityy1/dynamic-form-builder-with-auth.git
 ```
 
 ---
@@ -93,7 +92,7 @@ npm run dev
 ```
 
 Navigate to:
-http://localhost:3001/login
+http://localhost:3000/login
 
 ---
 
