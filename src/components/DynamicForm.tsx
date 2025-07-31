@@ -26,10 +26,6 @@ const Form = styled.form`
   gap: 15px;
 `;
 
-const Label = styled.label`
-  font-weight: bold;
-`;
-
 const Input = styled.input`
   padding: 8px;
   font-size: 16px;
