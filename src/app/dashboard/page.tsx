@@ -41,6 +41,21 @@ const DeleteButton = styled.button`
   }
 `;
 
+const ExportButton = styled.button`
+  padding: 10px;
+  margin: 20px 0;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #005bb5;
+  }
+`;
+
 const schema = {
   title: 'Contact Form',
   fields: [
@@ -54,6 +69,7 @@ const DashboardPage = () => {
   const router = useRouter();
   const [isAuth, setIsAuth] = useState(false);
   const [forms, setForms] = useState<number[]>([1]);
+  const [submissions, setSubmissions] = useState<Record<number, Record<string, string>>>({});
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -72,12 +88,33 @@ const DashboardPage = () => {
 
   const deleteForm = (id: number) => {
     setForms((prev) => prev.filter((formId) => formId !== id));
+    setSubmissions((prev) => {
+      const newSubs = { ...prev };
+      delete newSubs[id];
+      return newSubs;
+    });
+  };
+
+  const handleFormSubmit = (id: number, data: Record<string, string>) => {
+    setSubmissions((prev) => ({ ...prev, [id]: data }));
+  };
+
+  const exportAll = () => {
+    const blob = new Blob([JSON.stringify(submissions, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'form-submissions.json';
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
     <Container>
       <h1>Admin Dashboard</h1>
       <AddButton onClick={addForm}>+ Add New Form</AddButton>
+      <ExportButton onClick={exportAll}>Export All Submissions</ExportButton>
+
       {forms.map((id) => (
         <div
           key={id}
@@ -92,7 +129,7 @@ const DashboardPage = () => {
             <h3>Form #{id}</h3>
             <DeleteButton onClick={() => deleteForm(id)}>Delete</DeleteButton>
           </div>
-          <DynamicForm schema={schema} />
+          <DynamicForm schema={schema} onSubmit={(data) => handleFormSubmit(id, data)} />
         </div>
       ))}
     </Container>

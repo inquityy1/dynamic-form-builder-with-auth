@@ -16,7 +16,8 @@ interface Schema {
 }
 
 interface DynamicFormProps {
-  schema: Schema;
+    schema: Schema;
+    onSubmit: (data: Record<string, string>) => void;
 }
 
 const Form = styled.form`
@@ -53,7 +54,7 @@ const Button = styled.button`
   }
 `;
 
-const DynamicForm: React.FC<DynamicFormProps> = ({ schema }) => {
+const DynamicForm: React.FC<DynamicFormProps> = ({ schema, onSubmit }) => {
   const [formData, setFormData] = useState<Record<string, string>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -62,7 +63,8 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ schema }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert(JSON.stringify(formData, null, 2));
+    onSubmit(formData);
+    alert('Form submitted!');
   };
 
   return (
@@ -73,18 +75,9 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ schema }) => {
           <div key={field.name}>
             <Label>{field.label}</Label>
             {field.type === 'textarea' ? (
-              <Textarea
-                name={field.name}
-                required={field.required}
-                onChange={handleChange}
-              />
+              <Textarea name={field.name} required={field.required} onChange={handleChange} />
             ) : (
-              <Input
-                type={field.type}
-                name={field.name}
-                required={field.required}
-                onChange={handleChange}
-              />
+              <Input type={field.type} name={field.name} required={field.required} onChange={handleChange} />
             )}
           </div>
         ))}
