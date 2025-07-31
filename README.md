@@ -1,36 +1,138 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# **Dynamic Form Builder with Auth**
 
-## Getting Started
+_A frontend project with authentication, dynamic form rendering, and export functionality._
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 📌 **Project Overview**
+
+This project is a **dynamic form builder application** built with **Next.js** and **TypeScript**. It demonstrates:
+
+- Rendering forms dynamically from a **JSON schema**
+- **Protected routes** using a simple JWT-like login flow
+- Adding multiple independent forms from the same schema
+- Exporting individual or all form submissions as JSON
+- Modern UI with **styled-components**
+- Full **unit and E2E test coverage**
+
+This project simulates real-world scenarios like **form engines** and **role-based access control**, similar to enterprise setups.
+
+---
+
+## 🛠 **Tech Stack**
+
+- **Frontend:** [Next.js](https://nextjs.org/), React, TypeScript
+- **Styling:** [styled-components](https://styled-components.com/)
+- **Authentication:** Simple JWT-like mechanism (localStorage)
+- **Testing:**
+  - **Unit Tests:** Jest + React Testing Library
+  - **E2E Tests:** Playwright
+- **Build Tooling:** Babel for Jest transformations
+
+---
+
+## ✅ **Features**
+
+- 🔐 **Login & Protected Routes:** Only authenticated users can access `/dashboard`
+- 🖊 **Dynamic Form Rendering:** Render fields dynamically from JSON schema
+- ➕ **Add/Delete Multiple Forms:** Create independent form instances from the same schema
+- 📤 **Export Data:**
+  - Export **single form submission** as JSON
+  - Export **all submissions at once**
+- 🎨 **Clean UI:** Styled with styled-components
+- ✅ **Testing:**
+  - Jest unit tests for core components
+  - Playwright E2E test for full flow
+
+---
+
+## 📂 **Project Structure**
+
+```
+project-root/
+├── src/
+│ ├── app/
+│ │ ├── login/ # Login page
+│ │ ├── dashboard/ # Dashboard page
+│ │ └── page.tsx # Redirects to /login
+│ ├── components/
+│ │ └── DynamicForm.tsx # Dynamic form renderer
+│ └── lib/
+│ └── api.ts # (Optional API helpers)
+├── tests/ # Playwright E2E tests
+├── jest.config.js
+├── babel.config.js
+└── playwright.config.ts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ⚡ **Getting Started**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### **1. Clone the Repository**
 
-## Learn More
+```
+git clone https://github.com/your-username/dynamic-form-builder.git
+cd dynamic-form-builder
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### **2. Install Dependencies**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+npm install
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### **3. Run Development Server**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+npm run dev
+```
+
+Navigate to:
+http://localhost:3001/login
+
+---
+
+## Login Credentials
+
+```
+Username: admin
+Password: admin123
+```
+
+---
+
+## Testing
+
+### Run Unit Tests (Jest)
+
+```
+npm run test
+```
+
+### Run E2E Tests (Playwright)
+
+```
+npm run e2e
+```
+
+Configured for headed mode with slow motion in playwright.config.ts.
+
+---
+
+Example JSON Schema
+
+```
+{
+  "title": "Contact Form",
+  "fields": [
+    { "type": "text", "label": "Name", "name": "name", "required": true },
+    { "type": "email", "label": "Email", "name": "email", "required": true },
+    { "type": "textarea", "label": "Message", "name": "message" }
+  ]
+}
+```
