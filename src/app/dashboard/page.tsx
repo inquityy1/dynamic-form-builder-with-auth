@@ -6,11 +6,39 @@ import { useRouter } from 'next/navigation';
 import DynamicForm from '@/components/DynamicForm';
 
 const Container = styled.div`
-  max-width: 600px;
+  max-width: 800px;
   margin: 50px auto;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+`;
+
+const AddButton = styled.button`
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #218838;
+  }
+`;
+
+const DeleteButton = styled.button`
+  padding: 8px;
+  margin-left: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #c82333;
+  }
 `;
 
 const schema = {
@@ -25,22 +53,48 @@ const schema = {
 const DashboardPage = () => {
   const router = useRouter();
   const [isAuth, setIsAuth] = useState(false);
+  const [forms, setForms] = useState<number[]>([1]);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-      router.push('/login'); // Redirect if not logged in
+      router.push('/login');
     } else {
       setIsAuth(true);
     }
   }, [router]);
 
-  if (!isAuth) return null; // Prevent flashing content
+  if (!isAuth) return null;
+
+  const addForm = () => {
+    setForms((prev) => [...prev, prev.length + 1]);
+  };
+
+  const deleteForm = (id: number) => {
+    setForms((prev) => prev.filter((formId) => formId !== id));
+  };
 
   return (
     <Container>
       <h1>Admin Dashboard</h1>
-      <DynamicForm schema={schema} />
+      <AddButton onClick={addForm}>+ Add New Form</AddButton>
+      {forms.map((id) => (
+        <div
+          key={id}
+          style={{
+            border: '1px solid #ccc',
+            padding: '15px',
+            marginBottom: '20px',
+            borderRadius: '8px',
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h3>Form #{id}</h3>
+            <DeleteButton onClick={() => deleteForm(id)}>Delete</DeleteButton>
+          </div>
+          <DynamicForm schema={schema} />
+        </div>
+      ))}
     </Container>
   );
 };
