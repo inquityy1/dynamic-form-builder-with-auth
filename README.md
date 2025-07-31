@@ -4,7 +4,7 @@ _A frontend project with authentication, dynamic form rendering, and export func
 
 ---
 
-## 📌 **Project Overview**
+## **Project Overview**
 
 This project is a **dynamic form builder application** built with **Next.js** and **TypeScript**. It demonstrates:
 
@@ -19,7 +19,7 @@ This project simulates real-world scenarios like **form engines** and **role-bas
 
 ---
 
-## 🛠 **Tech Stack**
+## **Tech Stack**
 
 - **Frontend:** [Next.js](https://nextjs.org/), React, TypeScript
 - **Styling:** [styled-components](https://styled-components.com/)
@@ -31,22 +31,22 @@ This project simulates real-world scenarios like **form engines** and **role-bas
 
 ---
 
-## ✅ **Features**
+## **Features**
 
-- 🔐 **Login & Protected Routes:** Only authenticated users can access `/dashboard`
-- 🖊 **Dynamic Form Rendering:** Render fields dynamically from JSON schema
-- ➕ **Add/Delete Multiple Forms:** Create independent form instances from the same schema
-- 📤 **Export Data:**
+- **Login & Protected Routes:** Only authenticated users can access `/dashboard`
+- **Dynamic Form Rendering:** Render fields dynamically from JSON schema
+- **Add/Delete Multiple Forms:** Create independent form instances from the same schema
+- **Export Data:**
   - Export **single form submission** as JSON
   - Export **all submissions at once**
-- 🎨 **Clean UI:** Styled with styled-components
-- ✅ **Testing:**
+- **Clean UI:** Styled with styled-components
+- **Testing:**
   - Jest unit tests for core components
   - Playwright E2E test for full flow
 
 ---
 
-## 📂 **Project Structure**
+## **Project Structure**
 
 ```
 project-root/
@@ -67,7 +67,7 @@ project-root/
 
 ---
 
-## ⚡ **Getting Started**
+## **Getting Started**
 
 ### **1. Clone the Repository**
 
